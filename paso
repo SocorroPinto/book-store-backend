@@ -1,0 +1,11 @@
+
+
+
+npx sequelize-cli model:generate --name Books --attributes Title:string,Author:string,PublicationYear:integer,Cost:integer,Description:text,Summary:text,Language:string,Img:string,Rating:integer,Pages:integer
+npx sequelize-cli model:generate --name Carts --attributes UserId:integer,Status:String,Total:integer,PurchaseDate:date,DeliveryDate:date,DeliveryAddress:text
+npx sequelize-cli model:generate --name CartDetails --attributes BasketId:integer,BookId:integer,Quantity:integer
+
+
+npx sequelize-cli db:migrate
+
+npx sequelize-cli db:seed:all
