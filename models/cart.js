@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'UserId' 
       });
       Cart.hasMany(models.CartDetails, { 
-        foreignKey: 'cartId' });
-    }
+        foreignKey: 'CartId' });
+      }
   };
   Cart.init({
     UserId: DataTypes.INTEGER,

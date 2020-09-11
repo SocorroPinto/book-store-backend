@@ -13,9 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       CartDetails.belongsTo(models.Cart, { 
         foreignKey: "CartId" 
       });
-      // CartDetails.hasMany(models.Books, {
-      //   foreignKey: 'BookId',
-      // }); 
+      CartDetails.hasMany(models.Books, {
+        foreignKey: 'id',
+      }); 
     }
   };
   CartDetails.init({
