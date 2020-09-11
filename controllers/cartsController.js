@@ -8,7 +8,7 @@ const BookModel = require("../models").Books;
 
 router.get("/", async (req, res) => {
     let carts = await CartModel.findAll({
-        include: CartDetModel
+        include: [BookModel]
     });
     res.json({ carts });
 });

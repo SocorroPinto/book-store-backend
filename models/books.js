@@ -15,6 +15,9 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'BookId',
         otherKey: 'CartId'
       });
+      // Books.belongsTo(models.CartDetails, {
+      //   foreignKey: 'id' 
+      // });
     }
   };
   Books.init({

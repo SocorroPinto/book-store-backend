@@ -11,10 +11,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       CartDetails.belongsTo(models.Cart, { 
-        foreignKey: "CartId" 
+         foreignKey: "CartId" 
       });
       CartDetails.hasMany(models.Books, {
-        foreignKey: 'id',
+         foreignKey: 'id',
       }); 
     }
   };
