@@ -68,7 +68,7 @@ router.get("/mostselled", async (req, res) => {
   myQuery += '          From "Carts" JOIN "CartDetails" ON "Carts"."id" = "CartDetails"."CartId" ';
   myQuery += '          Where "Status" = \'Confirmed\' ';
   myQuery += '          Group by "CartDetails"."BookId") AS "Selled" ON "Books"."id" = "Selled"."BookId" ';
-  myQuery += 'Order by "Selled"."vendidos" ';
+  myQuery += 'Order by COALESCE("Selled"."vendidos", 0) Desc';
 
   if ( myBooks.books.limit && myBooks.books.offset !== null) {
     myBooks.books.books = await db.sequelize.query(`${myQuery}`, {
