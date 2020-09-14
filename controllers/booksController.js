@@ -71,18 +71,13 @@ router.get("/mostselled", async (req, res) => {
   myQuery += 'Order by COALESCE("Selled"."vendidos", 0) Desc';
 
   if ( myBooks.books.limit && myBooks.books.offset !== null) {
+    myQuery += ` limit ${myBooks.books.limit} offset ${myBooks.books.offset} `;
+  } 
+
     myBooks.books.books = await db.sequelize.query(`${myQuery}`, {
-                              model: BookModel,
-                              limit: myBooks.books.limit, offset: myBooks.books.offset,
-                              mapToModel: true // pass true here if you have any mapped fields
-                          });
-  } else {
-    myBooks.books.books = await db.sequelize.query(`${myQuery}`, {
-                             model: BookModel,
-                             mapToModel: true // pass true here if you have any mapped fields
-                          }
-                          );     
-  }
+      model: BookModel,
+      mapToModel: true // pass true here if you have any mapped fields
+    });   
 
   res.json({ myBooks });
 });
