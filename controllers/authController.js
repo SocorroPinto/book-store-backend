@@ -6,6 +6,31 @@ const jwt = require("jsonwebtoken");
 
 const UserModel = require("../models").User;
 
+let UserInfo = class {
+	constructor() {
+      this.token = null,
+      this.id = null,
+      this.name = null,
+      this.username = null,
+      this.password = null,
+      this.email = null,
+      this.administrator = null
+	}
+
+	init = (token, foundUser, pass) => {
+    console.log('Here is myfound user', foundUser)
+      this.token = token;
+      this.id = foundUser.id;
+      this.name = foundUser.name;
+      this.username = foundUser.username;
+      this.password = pass;
+      this.email = foundUser.email;
+      this.administrator = foundUser.administrator;
+	}
+};
+
+const myUser = new UserInfo();
+
 // SIGN OUT ROUTE
 router.get("/logout", (req, res) => {
   res.clearCookie("jwt");
@@ -35,9 +60,10 @@ router.post("/signup", (req, res) => {
             }
           );
           console.log(token);
+          myUser.init(token, newUser, req.body.password);
           // res.cookie("jwt", token); // SEND A NEW COOKIE TO THE BROWSER TO STORE TOKEN
           // res.redirect(`/users/profile/${newUser.id}`);
-          res.json({ token });
+          res.json({ myUser });
         })
         .catch((err) => {
           console.log(err);
@@ -52,7 +78,7 @@ router.post("/login", (req, res) => {
   UserModel.findOne({
     where: {
       username: req.body.username,
-    },
+    }
   }).then((foundUser) => {
     if (foundUser) {
       bcrypt.compare(req.body.password, foundUser.password, (err, match) => {
@@ -67,10 +93,11 @@ router.post("/login", (req, res) => {
               expiresIn: "30 days",
             }
           );
-          console.log(token);
+
+          myUser.init(token, foundUser, req.body.password);
           // res.cookie("jwt", token); // SEND A NEW COOKIE TO THE BROWSER TO STORE TOKEN
           // res.redirect(`/users/profile/${foundUser.id}`);
-          res.json({ token });
+          res.json({ myUser });
         } else {
           return res.sendStatus(400);
         }

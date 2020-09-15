@@ -9,21 +9,21 @@ module.exports = {
           name: "Gladys Cruz",
           username: "gladys",
           password: null,
-          eMail: "gladys@cruz",
+          email: "gladys@cruz",
           administrator: true
         },
         {
           name: "Socorro Pinto",
           username: "soco",
           password: null,
-          eMail: "socorro@pinto",
+          email: "socorro@pinto",
           administrator: true
         },
         {
           name: "Sergio Sarmiento",
           username: "sergio",
           password: null,
-          eMail: "sergio@sarmiento",
+          email: "sergio@sarmiento",
           administrator: false
         },
       ],

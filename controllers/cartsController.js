@@ -15,13 +15,28 @@ router.get("/", async (req, res) => {
     res.json({ carts });
 });
 
+router.get("/byuser/:user/", async (req, res) => {
+  let carts = await CartModel.findAll({
+      where: { UserId: req.params.user,
+               Status: 'New' },
+      include: [
+        {model: CartDetModel, include: [BookModel] }
+      ]
+  });
+  res.json({ carts });
+});
+
 router.post("/", async (req, res) => {
     let cart = await CartModel.create(req.body);
     res.json({ cart });
 });
 
 router.get("/:id", async (req, res) => {
-    let cart = await CartModel.findByPk(req.params.id);
+    let cart = await CartModel.findByPk(req.params.id, {
+      include: [
+        {model: CartDetModel, include: [BookModel] }
+      ]
+  });
     res.json({ cart });
 });
   
@@ -32,7 +47,9 @@ router.put("/:id", async (req, res) => {
     });
 
     let cart = await CartModel.findByPk(req.params.id, {
-        include: CartDetModel,
+      include: [
+        {model: CartDetModel, include: [BookModel] }
+      ]
     });    
   
     res.json({ cart });
