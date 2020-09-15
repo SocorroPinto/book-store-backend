@@ -28,7 +28,7 @@ router.put("/:id", async (req, res) => {
     let updCartDet = await CartDetModel.update(req.body, {
       where: { id: req.params.id },
       returning: true,
-    });
+    }); 
 
     let cartDetail = await CartDetModel.findByPk(req.params.id, {
         include: BookModel,
@@ -37,7 +37,7 @@ router.put("/:id", async (req, res) => {
     res.json({ cartDetail });
 });
   
-  // DELETE A USER
+
 router.delete("/:id", async (req, res) => {
     await CartDetModel.destroy({
       where: { id: req.params.id },

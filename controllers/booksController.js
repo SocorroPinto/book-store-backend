@@ -1,5 +1,6 @@
 const express = require("express");
 const db = require("../models");
+const { Op } = require("sequelize");
 const router = express.Router();
 
 const BookModel = require("../models").Books;
@@ -37,6 +38,38 @@ router.get("/", async (req, res) => {
 		});
 	} else {
 		myBooks.books.books = await BookModel.findAll();
+	}
+
+	res.json({ myBooks });
+});
+
+router.get("/search", async (req, res) => {
+	const mySearch = req.query.hasOwnProperty("tag") ? "%"+req.query.tag+"%" : null;
+	const myBooks = new Libros();
+	myBooks.init(req.query);
+
+	if (myBooks.books.limit && myBooks.books.offset !== null) {
+		myBooks.books.books = await BookModel.findAll({
+			where: { [Op.or]: [ {
+									Title: { [Op.iLike]: mySearch, },
+								},
+								{	
+									Author: { [Op.iLike]: mySearch, },
+								 } ] 
+					},
+			limit: myBooks.books.limit,
+			offset: myBooks.books.offset,
+		});
+	} else {
+		myBooks.books.books = await BookModel.findAll({
+			where: { [Op.or]: [ {
+				Title: { [Op.iLike]: mySearch, },
+			},
+			{	
+				Author: { [Op.iLike]: mySearch, },
+			 } ] 
+			},
+		});
 	}
 
 	res.json({ myBooks });

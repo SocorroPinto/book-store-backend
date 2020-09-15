@@ -42,3 +42,4 @@ app.use("/api/cartdets", require("./controllers/cartDetailsController.js"));
 app.listen(process.env.PORT, () => {
   console.log("Nodemon listening");
 });
+
