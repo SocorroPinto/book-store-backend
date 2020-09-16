@@ -1,7 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-//const CartModel = require("../models").Cart;
+
+const CartModel = require("../models").Cart;
 const CartDetModel = require("../models").CartDetails;
 const BookModel = require("../models").Books;
 
@@ -14,7 +15,17 @@ router.get("/", async (req, res) => {
 
 router.post("/", async (req, res) => {
     let cartDetail = await CartDetModel.create(req.body);
-    res.json({ cartDetail });
+
+    let carts = await CartModel.findAll({
+        where: { id: cartDetail.CartId,
+                 Status: 'New' },
+        include: [
+          {model: CartDetModel, include: [BookModel] }
+        ]
+    });
+
+    res.json({ carts });
+
 });
 
 router.get("/:id", async (req, res) => {
