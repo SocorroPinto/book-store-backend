@@ -1,33 +1,38 @@
-## Deere Project 4 Starter Code
+# book-store-backend
+BackEnd Application for an Owl Book Store
 
-This app serves JSON data only. There are no views. You'll build a React app to communicate with this Express app. Since there are no views, you'll want to use Postman to test that your endpoints are working before writing the React code.
+This project was done by Gladys Cruz and Socorro Pinto
 
+This app serves JSON data only. There are no views. 
 Note - this app has no views and each endpoint is prefaced with `/api`.
 
+We have the following routes in our server.js:
+
 ```js
-// server.js
 app.use("/api/auth", require("./controllers/authController.js"));
 app.use("/api/users", require("./controllers/usersController.js"));
+app.use("/api/books", require("./controllers/booksController.js"));
+app.use("/api/carts", require("./controllers/cartsController.js"));
+app.use("/api/cartdets", require("./controllers/cartDetailsController.js"));
 ```
 
-## Set Up
+## The database we used is called:
 
-1. Fork and clone this repo
-1. `cd` into the folder and run `npm install`
-1. In the root of your app, `touch .env` and add:
+### owlBookStore
 
-   ```bash
-   PORT=3000
-   JWT_SECRET=pancakes
-   ```
+## The Entity Relation Diagram it is shown below:
 
-1. Check out your `config/config.json` file. You'll need to create a database called `project4_development` (or feel free to rename the database) in pgAdmin or from any directory in the Terminal:
+![EntityRelation](./docImages/EntityRelation.png)
 
-   ```
-   createdb project4_development
-   ```
+### Sequelize is included in the app with the following models:
 
-1. Sequelize is included in the app. You have a `User` model. Run `npx sequelize db:migrate` to create the `Users` table in your database.
+1. `User`
+2. `Books`
+3. `Cart`
+4. `CartDetails`
+
+Run `npx sequelize db:migrate` to create the tables in the database.
+Also, the seeds for `Users` and `Books` are included, run `npx sequelize-cli db:seed:all` to get the info in the database.
 
 1. Run `nodemon`.
 1. Open Postman to confirm that your app is working on `localhost:3000/`.
@@ -54,9 +59,40 @@ You have the following routes available.
 
 - GET `localhost:3000/api/users/profile/:id`
 
+#### `controllers/booksController.js`
+
+- GET `localhost:3000/api/books/`
+- GET `localhost:3000/api/books/:id`
+- GET `localhost:3000/api/books/search`
+- GET `localhost:3000/api/books/mostrated`
+- GET `localhost:3000/api/books/mostselled`
+- POST `localhost:3000/api/books/`
+- PUT `localhost:3000/api/books/:id`
+- DELETE `localhost:3000/api/books/:id`
+
+#### `controllers/cartsController.js`
+
+- GET `localhost:3000/api/carts/`
+- GET `localhost:3000/api/carts/byuser/:user/`
+- GET `localhost:3000/api/carts/:id`
+- POST `localhost:3000/api/carts/`
+- PUT `localhost:3000/api/carts/:id`
+- DELETE `localhost:3000/api/carts/:id`
+
+#### `controllers/cartDetails.js`
+
+- GET `localhost:3000/api/cartdets/`
+- GET `localhost:3000/api/cartdets/:id`
+- POST `localhost:3000/api/cartdets/`
+- PUT `localhost:3000/api/cartdets/:id`
+- DELETE `localhost:3000/api/cartdets/:id`
+
 <br>
 
 ## To Deploy
+
+It is deployed in Heroku in the following link:
+- [Link to Deployment](link)
 
 - [Heroku Node Express Deployment](https://git.generalassemb.ly/jdr-0622/node-express-heroku-deployment)
 - [Heroku React Deployment](https://blog.heroku.com/deploying-react-with-zero-configuration#create-and-deploy-a-react-app-in-two-minutes)
@@ -66,12 +102,5 @@ You have the following routes available.
 
 <br>
 
-## Additional Resources
 
-- [Sequelize Docs](https://sequelize.org/master/)
-- [Fruit App Solution](https://git.generalassemb.ly/jdr-0622/fruit-app-in-class)
-- [Pokemon Express Solution](https://git.generalassemb.ly/jdr-0622/pokemon-express-sequelize6)
-- [Google Routes Spreadsheet](https://docs.google.com/spreadsheets/d/14-LHKXLtEkp_vKEz3qSKjREnrmSyzQ9fimTlmrPsZsQ/edit#gid=0)
-- [JSON Web Tokens](https://jwt.io/)
-# book-store-backend
-BackEnd Application for an Owl Book Store
+
