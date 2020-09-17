@@ -61,26 +61,54 @@ You have the following routes available.
 
 #### `controllers/booksController.js`
 
+Get all the books, accept limit and offset parameters:
 - GET `localhost:3000/api/books/`
+
+`localhost:3000/api/books/search?limit=6&offset=0`
+
+Get book by id:
 - GET `localhost:3000/api/books/:id`
+
+Get books by tag (also accept limit and offset parametters):
 - GET `localhost:3000/api/books/search`
+
+`localhost:3000/api/books/search?tag=whatyouwanttosearch`
+Will seach in books titles and authors.
+
+Get the most rated books (accept limit and offset parameters).
 - GET `localhost:3000/api/books/mostrated`
+
+Get the most rated books (accept limit and offset parameters).
 - GET `localhost:3000/api/books/mostselled`
+
+Routes to Create, Update and Delete a Book (functionality not allowed in the frontEnd application)
 - POST `localhost:3000/api/books/`
 - PUT `localhost:3000/api/books/:id`
 - DELETE `localhost:3000/api/books/:id`
 
+
 #### `controllers/cartsController.js`
 
+Route to get all the carts (not used in frontEnd)
 - GET `localhost:3000/api/carts/`
+
+Get all the carts with status='New' by userId - Returns also de cartDetails and Book Models
 - GET `localhost:3000/api/carts/byuser/:user/`
+
+Get all the carts with status='History' by userId - Returns also de cartDetails and Book Models
+- GET `localhost:3000/api/carts/byuserhis/:user/`
+
+Routes to Create, Update and Delete a Cart 
 - GET `localhost:3000/api/carts/:id`
 - POST `localhost:3000/api/carts/`
+
+Returns also the cartDetails and Book Models
 - PUT `localhost:3000/api/carts/:id`
 - DELETE `localhost:3000/api/carts/:id`
 
 #### `controllers/cartDetails.js`
 
+Routes to do the CRUD operations in the cartDetails table.
 - GET `localhost:3000/api/cartdets/`
 - GET `localhost:3000/api/cartdets/:id`
 - POST `localhost:3000/api/cartdets/`
@@ -101,6 +129,12 @@ It is deployed in Heroku in the following link:
   ![](https://i.imgur.com/hy2jymA.png)
 
 <br>
+
+## User Stories:
+
+1.- Do the Basic GET, POST, PUT and DELETE for all the tables in the database.
+2.- Do the routes for mostselled, mostrated and search books.
+3.- Modificate the basic routes to return additionnal values.
 
 
 
